@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="title" content="Harness the synergistic capabilities of Layer 4 and Layer 7 Dstats seamlessly integrated into a unified platform.">
+  <meta name="description" content="
+  Experience the ultimate in Private Layer 4 and Layer 7 Dstats on our cutting-edge platform—free for all and seamlessly compatible with every web platform. Unlock the unparalleled power of our Private L4 & L7 Dstats, setting the new standard for performance and reliability.">
+  <meta name="keywords" content="dstat,ws,dstatonline,private,private dstat,privat,live dstat,live,layer4,layer7,layer 4,layer 7,stresstesting,dstatcc,stresser,performance,monitoring,resourceusage,network,system,utilization,statistics,commandline,realtime,analysis,metrics,reporting,server,client,connections,throughput,bandwidth,cpu,ram,disk,i/o,uptime,loadaverage,networktraffic,packetloss,latency,requests,concurrent,connections,attacks,bottlenecks,benchmarking,scalability,testingtools,testingtechniques,ddos,attacks,security,firewall,attacksurface,ddosprotection,attackvectors,networkprotocols,trafficgeneration,trafficanalysis,protocols,http,https,tcp,udp,icmp,ssl,tls,serverload,serverperformance,networkperformance,distributedsystems,webapplications,webserver,cloudcomputing,cloudservices,containerization,microservices,virtualization,servermonitoring,servermanagement,applicationperformance,applicationmonitoring,applicationmetrics,datacenter,serverhealth,serverstatistics,open-source,commandlineutility,resourcemanagement,networkstatistics,networkmonitoring,networkutilization,networkthroughput,systemresources,systemperformance,cpuusage,ramusage,diskusage,i/outilization,dstatcommands,dstatreporting,dstatoutput,loadbalancer,serverstatus,loadtesting,benchmarkingtools,webtraffic,netstat,systemutilities,networktools,resourceutilization,distributedsystems,serveranalysis,networkanalysis,performanceoptimization,serveroptimization,datatraffic,networkstress,serverstress.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Stressclub.top - Elevating Dstats to the pinnacle for professionals.">
+  <meta property="og:description" content="
+  DstatWs: Your Ultimate Destination for Layer 4 & Layer 7 Dstats! Embrace Total Freedom with Free Usage, Multi-Language Support, Daily Dstat Checks, Zero Logs, and Uncompromising Privacy Protection">
+  <meta property="og:image" content="https://i.imgur.com/Ahhe7AA.png">
+  <meta property="og:url" content="https://dstat.love/">
+  <link rel="alternate" hreflang="ru-RU" href="https://dstat.love/ru/">
+  <link rel="alternate" hreflang="zh-CN" href="https://dstat.love/cn/">
+  <link rel="alternate" hreflang="en-US" href="https://dstat.love/en/">
+  <title>Stressclub.top, the platform for Layer4 & Layer7 Dstats.</title>
+  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/m1Aes5U.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+  <style>
+    .skiptranslate iframe {
+      visibility: hidden !important;
+    }
+
+    body {
+      top: 0 !important;
+    }
+
+    body {
+      background-image: url("data:image/svg+xml,%3Csvg id='visual' viewBox='0 0 960 540' width='960' height='540' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'%3E%3Crect x='0' y='0' width='960' height='540' fill='%231e242a'%3E%3C/rect%3E%3Cpath d='M0 419L32 421.7C64 424.3 128 429.7 192 435.2C256 440.7 320 446.3 384 444.3C448 442.3 512 432.7 576 425.2C640 417.7 704 412.3 768 413.2C832 414 896 421 928 424.5L960 428L960 541L928 541C896 541 832 541 768 541C704 541 640 541 576 541C512 541 448 541 384 541C320 541 256 541 192 541C128 541 64 541 32 541L0 541Z' fill='%23181d22' stroke-linecap='round' stroke-linejoin='miter'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 1s ease;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-bar-wrapper {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 3px;
+      background-color: rgb(148, 26, 26);
+      z-index: 9999;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 100%;
+      background-color: rgb(250, 135, 135);
+      animation: loadingAnimation 2s linear forwards;
+    }
+
+    .bar {
+      height: 50px;
+      /* Set the desired height of the bar */
+      background-color: #352929; /* #292F35 */
+      display: flex;
+      padding: 5px;
+      color: white;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .bar-item {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      /* Required for absolute positioning of blink effect */
+      cursor: pointer;
+    }
+
+    .bar-item i {
+      font-weight: bolder;
+      margin-right: 5px;
+    }
+
+    @keyframes loadingAnimation {
+      0% {
+        width: 0;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    .selector-dropdown {
+      position: absolute;
+      width: 185%;
+      top: 100%;
+      left: 0;
+      background-color: #2e2222;
+      padding: 5px;
+      border-radius: 5px;
+      display: none;
+      z-index: 999;
+      /* Set a higher z-index value to ensure the dropdown appears above the card */
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .bar-item.layer4:hover .selector-dropdown,
+    .bar-item.layer7:hover .selector-dropdown {
+      display: block;
+      opacity: 1;
+    }
+
+    .bar-item.layer4 .fa-caret-down,
+    .bar-item.layer7 .fa-caret-down {
+      /* ... other styles ... */
+      transition: transform 0.3s ease;
+    }
+
+    .selector-dropdown-item {
+      /* ... your existing styles ... */
+      display: flex;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .bar-item.layer4:hover .selector-dropdown-item,
+    .bar-item.layer7:hover .selector-dropdown-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bar-item.layer4:hover .fa-caret-down,
+    .bar-item.layer7:hover .fa-caret-down {
+      transform: rotate(180deg);
+    }
+
+    .select-dropdown-item:hover {
+      background: #382b2b;
+    }
+
+    .selector-dropdown-item {
+      color: white;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    /* Set a higher z-index for the card */
+    .card {
+      background-color: #352929;
+      /* Same color as the bar */
+      padding: 10px;
+      border-radius: 5px;
+      position: relative;
+      z-index: 1;
+      /* Set a higher z-index value to place the card above other elements */
+    }
+
+    /* Styles for the example Grafana iframe */
+    .chart-info {
+      top: 10px;
+      color: white;
+    }
+
+    .copy-button {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .language-button {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .info-box-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+    }
+
+    .header {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      /* You can adjust the margin-top value to center the text vertically */
+      margin-bottom: 10px;
+      /* You can adjust the margin-top value to center the text vertically */
+    }
+
+    .left-icons {
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .right-icons {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      margin-right: 10px;
+      color: white;
+    }
+
+    .info-box {
+      background-color: #fff;
+      color: #000;
+      padding: 1px 15px 1px 15px;
+      border-radius: 3px;
+      box-shadow: 0 6px 7px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .circle {
+      margin-left: 5px;
+      width: 35%;
+      border: 1.5px solid rgb(182, 34, 34);
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .text-bar {
+      background-color: rgb(141, 28, 28);
+      border: 5px solid rgb(141, 28, 28);
+      border-radius: 3px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .ads {
+      margin-top: 10px;
+      background-color: #352929;
+      border: 5px solid #352929;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .ads img {
+      max-width: 100%;
+    }
+
+    .text-bar p {
+      font-weight: bolder;
+      margin: 0px; /* Remove default margin to avoid extra spacing */
+    }
+
+    /* For smaller screens */
+    @media only screen and (max-width: 996px) {
+      .bar {
+        font-size: 12px;
+        padding: 2px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      table {
+        font-size: 8px;
+      }
+
+      .language-button {
+        display: none;
+      }
+
+      .text-bar p {
+        font-size: 12px; /* Reduce font size for smaller screens */
+      }
+      .cool {
+        font-size: 12px; /* Reduce font size for smaller screens */
+      }
+      .ads img {
+        min-width: 100%;
+        max-width: 100%;
+      }
+      .ads {
+        display:block;
+      }
+    }
+    .rounded-flag {
+      display: inline-block;
+      border-radius: 25%;
+      margin-top: 3px;
+      overflow: hidden;
+    }
+    #myframe {
+      background-color: #e0e0e0; /* Set your desired background color */
+    }
+    #myChart {
+      background-image: url('../ok.png');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2DC0KJX4BX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-2DC0KJX4BX');
+</script>
+<body>
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-bar-wrapper">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+  <div class="header">
+    <div class="left-icons">
+    </div>
+    <div class="title notranslate"><img src="https://i.imgur.com/Ahhe7AA.png" width="38px" height="38px" style="margin-bottom: -6px;"></div>
+    <div class="right-icons">
+      <div class="icon"><a href="https://t.me/dwsstat" style="color:#fff;"><i class="fa-brands fa-telegram"></i></a></div>
+    </div>
+  </div>
+  <div class="bar">
+    <div class="bar-item" style="margin-left: 10px;" onclick="window.location.href = '/';">
+      <i class="fas fa-home"></i> Home
+    </div>
+    <div class="bar-item" onclick="window.location.href = 'https://dstat.love/?stresser';">
+      <i class="fa-solid fa-rocket"></i>Booter Review
+    </div>
+    <div class="bar-item layer7">
+      <i class="fa-solid fa-signal"></i> Layer7 <i class="fa-solid fa-caret-down" style="color:#686868;margin-left:2.5px;"></i>
+      <div class="selector-dropdown notranslate">
+        <div class="selector-dropdown-item" style="font-weight: bolder;">Unprotected</div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=nexa-massive';">Nexa<div class="circle">~20Mrs</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=reqshield';">ReqShield<div class="circle">~3Mrs</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=nosec';">NoSec<div class="circle">~1Mrs</div></div>
+        <div class="selector-dropdown-item" style="font-weight: bolder;">Protected</div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=migranten';">Migrant<div class="circle">~100Krs</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=finn';">Finn<div class="circle">~50Krs</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=cloudsdrop';">CloudsDrop<div class="circle">~50Krs</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l7=nexa-solutions';">Nexa<div class="circle">~50Krs</div></div>
+      </div>
+    </div>
+    <div class="bar-item layer4">
+      <i class="fa-solid fa-signal"></i> Layer4 <i class="fa-solid fa-caret-down" style="color:#686868;margin-left:2.5px;"></i>
+      <div class="selector-dropdown notranslate">
+        <div class="selector-dropdown-item" style="font-weight: bolder;">Unprotected</div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=ovh-01';">OVH-1<div class="circle">~2/Tbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=ovh-02';">OVH-2<div class="circle">~2/Tbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=datacamp2';">DataCamp<div class="circle">~40/Gbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=datacamp';">DataCamp<div class="circle">~40/Gbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=fdcservers';">Fdcservers<div class="circle">~10/Gbps</div></div>
+        <div class="selector-dropdown-item" style="font-weight: bolder;">Protected</div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=ovh';">OVH<div class="circle">~25/Gbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=fiedler';">Fiedler<div class="circle">~10/Gbps</div></div>
+        <div class="selector-dropdown-item select-dropdown-item" onclick="window.location.href = '?l4=xertz';">OVH<div class="circle">~2/Gbps</div></div>
+      </div>
+    </div>
+    <div class="language-button">
+      <div class="bar-item">
+        <a href="https://t.me/dstatws" target="_blank" style="color:rgb(209, 34, 165);text-decoration: none;"></a>
+      </div>
+    </div>
+  </div>
+  <div class="text-bar ads">
+    <center><a href="https://quickdown.pro?dstatws" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://stresse.cat/?refs=6" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://webstress.app?dstatws" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://digitalstress.su?dstatws" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+</div>
+  <div class="text-bar">
+    <center><p>Boost your business and connect with like-minded individuals in our latest Telegram Chat! Join now for exciting discussions and networking opportunities. <a href="https://t.me/dstatwschat" target="_blank" style="color:rgb(230, 173, 173);">t.me/dstatwschat</a>!</p></center>
+  </div>
+  <div class="card notranslate">
+    <!-- Example Grafana iframe -->
+    <div class="chart-info notranslate" id="info">
+      <center style="font-weight: bolder;text-transform: uppercase;" id="name">Please select a dstat to start.</center>
+      <center id="coolfrosch"></center>
+      <br>
+    </div>
+    <!-- Example Grafana iframe -->
+    <a id="www"><div><canvas id="myChart" style="width:100%;max-height: 500px;min-height: 400px;"></canvas></div></canvas></a>
+  </div>
+  <div class="text-bar ads">
+    <center><a href="https://orbitalstress.net/" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://t.me/quartzbotnet" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://lkxstress.su" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+    <center><a href="https://vacstresser.org" target="_blank"><img src="https://i.imgur.com/0XM9jvO.png" width="468px" height="60"/></a></center>
+  </div>
+  <div class="info-box-container"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'8478c85bba0c0e47',t:'MTcwNTYwMTI5OS44MTkwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8478c85bba0c0e47","r":1,"version":"2023.10.0","token":"d97611e1076148f0a9e283d2c9f3ed33"}' crossorigin="anonymous"></script>
+</body>
+<script>
+  if(`${window.location.href}` === "https://dstat.love/" || `${window.location.href}` === "https://dstat.love/index.html" || `${window.location.href}` === "https://dstat.love" || `${window.location.href}` === "http://127.0.0.1:3000/") {
+    document.getElementById("info").style = "max-height: 50px;";
+    document.getElementById("name").innerText = "Please select a dstat to start.";
+    //document.getElementById("coolfrosch").innerText = "\nSoon";
+  }
+  if (`${window.location.href}`.split('?')[1] === "stresser") {
+    document.getElementById("name").style = "";
+    document.getElementById("www").innerHTML = "";
+    document.getElementById("info").style = "min-height: 550px;";
+    document.getElementById("name").innerHTML = `<table style="width:100%"><thead><tr><th>Name<th>Website<th>Description<th>Layer4/7<th>Owner<th>Rating<th>Already open since<tbody class="notranslate"style="text-align:center"><tr class="spaceUnder"><td>InverseStresser<td><a href="https://inverse.sh"style="color:#add8e6"target="_blank">inverse.sh</a><td>Powerful Stresser with good L4 & L7 bypasses<td>Yes<td>rateIimits<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>August 2022<tr class="spaceUnder"><td>Mythicalstress<td><a href="https://mythicalstress.xyz"style="color:#add8e6"target="_blank">mythicalstress.xyz</a><td>A stresser with Great Layer 4 & Layer 7 Capacity & Methods Bypasses.<td>Yes<td>zLockDownMT<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>April 2021<tr class="spaceUnder"><td>Webstress<td><a href="https://webstress.app"style="color:#add8e6"target="_blank">webstress.app</a><td>The most reliable ip stresser<td>Yes<td>dariodino<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>January 2023<tr class="spaceUnder"><td>QuickDown<td><a href="https://quickdown.pro"style="color:#add8e6"target="_blank">quickdown.pro</a><td>Stresser with insanely high power, the best bypasses, and by far the most competitive prices on the market<td>Yes<td>Cheatioxx<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>August 2023<tr class="spaceUnder"><td>Neostress<td><a href="https://neostress.net"style="color:#add8e6"target="_blank">neostress.net</a><td>Powerful Stresser with L4 Bypass & L7 Bypass methods<td>Yes<td>gnacioor<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>March 2023<tr class="spaceUnder"><td>Vacstresser.ru<td><a href="https://vacstresser.ru"style="color:#add8e6"target="_blank">vacstresser.ru</a><td>Stresser with Decent l7, l3 and l4 power with almost 0 downtimes, cheap prices and custom plans<td>Yes<td>bogussys<td><i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i> <i class="fa-regular fa-star"style="color:#ff0"></i><td>April 2023</table>`;
+  }
+  if (`${window.location.href}`.includes('?')) {
+    if (`${window.location.href}`.split('?')[1].split('=')[0] === "iframe") {  //  && `${window.location.href}`.split('?')[1].split('=')[1] !== "x4b"
+      fetch('https://api.dstat.love/', {
+        method: 'POST',
+        body: JSON.stringify({
+          "type": `${window.location.href}`.split('?')[1].split('=')[0],
+          "name": `${window.location.href}`.split('?')[1].split('=')[1]
+        }),
+      }).then(async (response) => {
+        var json = await response.json();
+        if(response.status === 200) {
+          document.getElementById("name").innerText = `${window.location.href}`.split('?')[1].split('=')[1];
+          let tip = json.tip;
+          if(tip === undefined) {
+            tip = "";
+          }
+          document.getElementById("coolfrosch").innerHTML = `IP: <a style="text-decoration: underline;color:lightskyblue;cursor: pointer;" onclick="copyURL(document.getElementById('url').innerText)" id="url">` + json.hit + `</a><span class="copy-button" onclick="copyURL(document.getElementById('url').innerText)"><i class="fa-regular fa-paste"></i></span>` + `<br><i>` + tip + `</i>`;
+          //console.log(json.count.length)
+
+          document.getElementById("www").innerHTML = `<div><iframe id="myframe" src="` + json.display + `" width="100%" height="514" frameborder="0" scrolling="no"></div>`;
+        }
+      });
+    }
+    if (`${window.location.href}`.split('?')[1].split('=')[0] === "l4" && `${window.location.href}`.split('?')[1].split('=')[1] !== "aurologic") {  //  && `${window.location.href}`.split('?')[1].split('=')[1] !== "x4b"
+      fetch('https://api.dstat.love/', {
+        method: 'POST',
+        body: JSON.stringify({
+          "type": `${window.location.href}`.split('?')[1].split('=')[0],
+          "name": `${window.location.href}`.split('?')[1].split('=')[1]
+        }),
+      }).then(async (response) => {
+        var json = await response.json();
+        if(response.status === 200) {
+          document.getElementById("name").innerText = `${window.location.href}`.split('?')[1].split('=')[1];
+          let tip = json.tip;
+          if(tip === undefined) {
+            tip = "";
+          }
+          document.getElementById("coolfrosch").innerHTML = `IP: <a style="text-decoration: underline;color:lightskyblue;cursor: pointer;" onclick="copyURL(document.getElementById('url').innerText)" id="url">` + json.hit + `</a><span class="copy-button" onclick="copyURL(document.getElementById('url').innerText)"><i class="fa-regular fa-paste"></i></span>` + `<br><i>` + tip + `</i>`;
+          //console.log(json.count.length)
+          let bits_in = [];
+          let bits_out = [];
+          let pps_in = [];
+          let pps_out = [];
+          let conns = [];
+          for (let i = 0; i < json.count.length; i++) {
+            bits_in.push(json.count[i].bits.in)
+            bits_out.push(json.count[i].bits.out)
+            pps_in.push(json.count[i].packets.in)
+            pps_out.push(json.count[i].packets.out)
+            conns.push(json.count[i].conns)
+          }
+          //console.log(chart.data.datasets[0].data)
+          console.log(json);
+          let chart = new Chart("myChart", {
+            type: "line",
+            data: {
+              labels: ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],
+              datasets: [{
+                  label: "Total Bandwidth In",
+                  fill: true,
+                  borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                  tension: 0.05,
+                  data: bits_in.slice(0, 60),
+                },
+                {
+                  label: "Total Bandwidth Out",
+                  hidden: true,
+                  fill: true,
+                  borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                  tension: 0.05,
+                  data: bits_out.slice(0, 60)
+                },
+                {
+                  label: "Total Packets In",
+                  fill: true,
+                  borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                  tension: 0.05,
+                  data: pps_in.slice(0, 60)
+                },
+                {
+                  label: "Total Packets Out",
+                  hidden: true,
+                  fill: true,
+                  borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                  tension: 0.05,
+                  data: pps_out.slice(0, 60)
+                },
+                {
+                  label: "Active Connections",
+                  hidden: true,
+                  fill: true,
+                  tension: 0.05,
+                  borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                  backgroundColor: 'rgba(255, 0, 0, 0.125)',
+                  data: conns.slice(0, 60)
+                }
+              ]
+            },
+            options: {
+              responive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: false
+              },
+              interaction: {
+                intersect: false
+              },
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+                      let label = context.dataset.label || '';
+
+                      if (label) {
+                        label += ': ';
+                      }
+                      if (context.parsed.y !== null) {
+                        if (`${context.dataset.label}`.includes("Bandwidth")) {
+                          label += convertToBestUnit(context.parsed.y);
+                        } else {
+                          label += formatNumber(context.parsed.y);
+                        }
+                      }
+                      return label;
+                    }
+                  }
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  // Use the callback function to format the labels
+                  ticks: {
+                    callback: function(value, index, values) {
+                      return convertToBestUnit(value); // Modify the label format as needed
+                    },
+                  },
+                },
+              }
+            }
+          });
+          setInterval(async () => {
+            fetch('https://api.dstat.love/', {
+              method: 'POST',
+              body: JSON.stringify({
+                "type": `${window.location.href}`.split('?')[1].split('=')[0],
+                "name": `${window.location.href}`.split('?')[1].split('=')[1]
+              }),
+            }).then(async (response) => {
+              var json = await response.json();
+              if(response.status === 200) {
+                bits_in = [];
+                bits_out = [];
+                pps_in = [];
+                pps_out = [];
+                conns = [];
+                for (let i = 0; i < json.count.length; i++) {
+                  bits_in.push(json.count[i].bits.in)
+                  bits_out.push(json.count[i].bits.out)
+                  pps_in.push(json.count[i].packets.in)
+                  pps_out.push(json.count[i].packets.out)
+                  conns.push(json.count[i].conns)
+                }
+                if(chart.data.datasets[0].data.length >= 60) {
+                  chart.data.datasets[0].data.shift();
+                  chart.data.datasets[1].data.shift();
+                  chart.data.datasets[2].data.shift();
+                  chart.data.datasets[3].data.shift();
+                  chart.data.datasets[4].data.shift();
+                  chart.data.datasets[0].data.push(bits_in[bits_in.length-1])
+                  chart.data.datasets[1].data.push(bits_out[bits_out.length-1])
+                  chart.data.datasets[2].data.push(pps_in[pps_in.length-1])
+                  chart.data.datasets[3].data.push(pps_out[pps_out.length-1])
+                  chart.data.datasets[4].data.push(conns[conns.length-1])
+                  chart.update();
+                } else {
+                  chart.data.datasets[0].data.push(bits_in[bits_in.length-1])
+                  chart.data.datasets[1].data.push(bits_out[bits_out.length-1])
+                  chart.data.datasets[2].data.push(pps_in[pps_in.length-1])
+                  chart.data.datasets[3].data.push(pps_out[pps_out.length-1])
+                  chart.data.datasets[4].data.push(conns[conns.length-1])
+                  chart.update();
+                }
+              }
+            });
+          }, 1750);
+        } else {
+          notification("<p>Failed to load Dstat.</p>", "#FF4D4D", "#fff");
+        }
+      });
+    }
+    if (`${window.location.href}`.split('?')[1].split('=')[0] === "l7" && `${window.location.href}`.split('?')[1].split('=')[1] !== "fastly") {
+      fetch('https://api.dstat.love/', {
+        method: 'POST',
+        body: JSON.stringify({
+          "type": `${window.location.href}`.split('?')[1].split('=')[0],
+          "name": `${window.location.href}`.split('?')[1].split('=')[1]
+        }),
+      }).then(async (response) => {
+        var json = await response.json();
+        if (response.status === 200) {
+          document.getElementById("name").innerText = `${window.location.href}`.split('?')[1].split('=')[1];
+          let tip = json.tip;
+          if(tip === undefined) {
+            tip = "";
+          }
+          document.getElementById("coolfrosch").innerHTML = `URL: <a style="text-decoration: underline;color:lightskyblue;cursor: pointer;" onclick="copyURL(document.getElementById('url').innerText)" id="url">` + json.hit + `</a><span class="copy-button" onclick="copyURL(document.getElementById('url').innerText)"><i class="fa-regular fa-paste"></i></span>` + `<br><i>` + tip + `</i>`;
+          //console.log(chart.data.datasets[0].data);
+          console.log(json);
+          let chart = new Chart("myChart", {
+            type: "line",
+            data: {
+              labels: ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],
+              datasets: [{
+                label: "Total RQS",
+                fill: true,
+                tension: 0.05,
+                borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                backgroundColor: 'rgba(255, 0, 0, 0.125)', // Red background with 12.5% transparency
+                data: json.count.slice(0, 60)
+              },
+              {
+                label: "Active Connections",
+                hidden: true,
+                fill: true,
+                tension: 0.05,
+                borderColor: 'rgba(255, 0, 0, 0.50)', // Red with 50% transparency
+                backgroundColor: 'rgba(255, 0, 0, 0.125)', // Red background with 12.5% transparency
+                data: json.conns.slice(0, 60)
+              }]
+            },
+            options: {
+              responive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: true
+              },
+              interaction: {
+                intersect: false
+              },
+              hover: {
+                mode: null
+              }
+            }
+          });
+          setInterval(() => {
+            fetch('https://api.dstat.love/', {
+              method: 'POST',
+              body: JSON.stringify({
+                "type": `${window.location.href}`.split('?')[1].split('=')[0],
+                "name": `${window.location.href}`.split('?')[1].split('=')[1]
+              }),
+            }).then(async (response) => {
+              var json = await response.json();
+              if (response.status === 200) {
+                if(json.count[json.count.length-1] < -100) {
+                  return;
+                }
+                //console.log(chart.data.datasets[0].data);
+                if(chart.data.datasets[1].data.length >= 60) {
+                  chart.data.datasets[1].data.shift();
+                  chart.data.datasets[1].data.push(json.conns[json.conns.length-1]);
+                  chart.update();
+                } else {
+                  chart.data.datasets[1].data.push(json.conns[json.conns.length-1]);
+                  chart.update();
+                }
+                //console.log(chart.data.datasets[0].data);
+                if(chart.data.datasets[0].data.length >= 60) {
+                  chart.data.datasets[0].data.shift();
+                  chart.data.datasets[0].data.push(json.count[json.count.length-1]);
+                  chart.update();
+                } else {
+                  chart.data.datasets[0].data.push(json.count[json.count.length-1]);
+                  chart.update();
+                }
+              } else {
+                notification("<p>Failed to load Dstat.</p>", "#FF4D4D", "#fff");
+              }
+            });
+          }, 1750);
+        } else {
+          notification("<p>Failed to load Dstat.</p>", "#FF4D4D", "#fff");
+        }
+      });
+    }
+  }
+
+  function notification(html, background, color) {
+    var infoBoxContainer = document.querySelector('.info-box-container');
+    var infoBox = document.createElement("div");
+    infoBox.className = "info-box";
+    infoBox.style.backgroundColor = background;
+    infoBox.style.color = color;
+    infoBox.innerHTML = html;
+    infoBoxContainer.appendChild(infoBox);
+    setTimeout(function() {
+      infoBox.style.opacity = "1";
+      setTimeout(function() {
+        infoBox.style.opacity = "0";
+        setTimeout(function() {
+          infoBox.remove();
+        }, 500);
+      }, 1750);
+    }, 100);
+  }
+
+  function formatNumber(number) {
+    const suffixes = ["", " thousand", " million", " billion"];
+    const base = 1000;
+
+    if (typeof number !== "number") {
+        throw new Error("Input must be a number.");
+    }
+
+    const isNegative = number < 0;
+    number = Math.abs(number);
+
+    if (number < base) {
+        return (isNegative ? "-" : "") + number.toString();
+    }
+
+    const suffixIndex = Math.floor(Math.log10(number) / 3);
+    const scaledNumber = number / Math.pow(base, suffixIndex);
+    const formattedNumber = scaledNumber.toFixed(2).replace(/\.0+$/, "");
+
+    return (isNegative ? "-" : "") + formattedNumber + suffixes[suffixIndex];
+  }
+
+  function convertToBestUnit(kilobits) {
+    const isNegative = kilobits < 0;
+    kilobits = Math.abs(kilobits); // Convert to positive value for further calculations
+
+    if (kilobits >= 1024 * 1024) {
+      // Convert to gigabits (Gbps)
+      const gigabits = kilobits / (1024 * 1024);
+      return isNegative ? `-${gigabits.toFixed(2)} Gbps` : `${gigabits.toFixed(2)} Gbps`;
+    } else if (kilobits >= 1024) {
+      // Convert to megabits (Mbps)
+      const megabits = kilobits / 1024;
+      return isNegative ? `-${megabits.toFixed(2)} Mbps` : `${megabits.toFixed(2)} Mbps`;
+    } else {
+      // Convert to kilobits (kb) or kilobytes (KB)
+      if (kilobits >= 8) {
+        // Convert to kilobits (kb)
+        return isNegative ? `-${kilobits.toFixed(2)} kb` : `${kilobits.toFixed(2)} kb`;
+      } else {
+        // Convert to kilobytes (KB)
+        const kilobytes = kilobits / 8;
+        return isNegative ? `-${kilobytes.toFixed(2)} KB` : `${kilobytes.toFixed(2)} KB`;
+      }
+    }
+  }
+
+  function copyURL(url) {
+    var tempInput = document.createElement("input");
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    //alert("URL copied to clipboard!");
+  }
+  window.addEventListener('load', function() {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.classList.add('hidden');
+  });
+</script>
+</html>
